@@ -1,0 +1,18 @@
+foskym-custom-levels:
+  admin:
+    settings:
+      levelText: 输入经验条的前缀文字（例如「等级」「Lv.」）
+      expFormula: 输入经验的计算公式（例如「[discussionCount] * 40 + [commentCount] / 20」）
+      expFormulaDesc1: 你可以使用以下变量：
+      expFormulaDesc2: 原生（[discussionCount] [commentCount]）
+      expFormulaDesc3: 需安装插件（[money] [likesReceived]）
+      levelFormula: 输入等级的计算公式（例如「[expTotal] / (100 + 5 * [level])」）
+      levelFormulaDesc: 可用变量 [expTotal] [level]
+  forum:
+    desc:
+      expText: "{expTotal} EXP"
+  lib:
+    defaults:
+      level: Level
+      expFormula: [discussionCount] * 40 + [commentCount] / 20
+      levelFormula: [expTotal] / (100 * [level])
