@@ -1,0 +1,53 @@
+.CustomLevel-level {
+  float: left;
+  position: relative;
+  margin-left: -80px;
+  margin-top: 75px;
+  width: 64px;
+  text-align: center;
+}
+
+div.CustomLevel-bar--empty {
+  background: @control-bg;
+}
+
+.CustomLevel-bar {
+  background: @primary-color;
+  border-radius: 10px;
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  top: 25px;
+}
+
+.CustomLevel-levelNumber {
+  position: relative;
+}
+
+.Post--hidden .CustomLevel-level {
+  display: none;
+}
+
+.Post--hidden.revealContent .CustomLevel-level {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .CustomLevel-level {
+    float: right;
+    position: relative;
+    margin-top: -10px;
+    width: 64px;
+    text-align: left;
+    right: 40px;
+  }
+  .CustomLevel-bar {
+    top: 22px;
+  }
+  .tooltip-arrow{
+    display:none;
+  }
+  .tooltip-inner {
+    width:60px;
+  }
+}

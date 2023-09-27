@@ -1,0 +1,83 @@
+{
+    "name": "foskym/flarum-custom-levels",
+    "description": "用户经验等级",
+    "type": "flarum-extension",
+    "require": {
+        "flarum/core": "^1.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FoskyM\\CustomLevels\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Custom Levels",
+            "icon": {
+                "name": "fa fa-level-up-alt",
+                "backgroundColor": "#68945c",
+                "color": "#fff"
+            },
+            "category": ""
+        },
+        "flarum-cli": {
+            "modules": {
+                "admin": true,
+                "forum": true,
+                "js": true,
+                "jsCommon": true,
+                "css": true,
+                "locale": true,
+                "gitConf": true,
+                "githubActions": true,
+                "prettier": true,
+                "typescript": true,
+                "bundlewatch": false,
+                "backendTesting": true,
+                "editorConfig": true,
+                "styleci": true
+            }
+        }
+    },
+    "keywords": [
+        "flarum",
+        "extension",
+        "levels",
+        "custom",
+        "user"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "FoskyM",
+            "email": "i@fosky.top",
+            "role": "Developer",
+            "homepage": "https://fosky.top"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "FoskyM\\CustomLevels\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
+        "test:unit": "phpunit -c tests/phpunit.unit.xml",
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:unit": "Runs all unit tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once."
+    },
+    "require-dev": {
+        "flarum/testing": "^1.0.0"
+    }
+}
