@@ -9,9 +9,10 @@ export default class LevelBar extends Component {
 
   view() {
     const user = this.attrs.user;
-    const pointsText = app.forum.attribute('foskym-custom-levels.pointsText') || app.translator.trans('foskym-custom-levels.lib.defaults.level');
-    let expFormula = app.forum.attribute('foskym-custom-levels.expFormula') || app.translator.trans('foskym-custom-levels.lib.defaults.expFormula');
-    let levelFormula = app.forum.attribute('foskym-custom-levels.levelFormula') || app.translator.trans('foskym-custom-levels.lib.defaults.levelFormula');
+    let levelText = app.forum.attribute('foskym-custom-levels.levelText') || app.translator.trans('foskym-custom-levels.lib.defaults.level')[0];
+    let expText = app.forum.attribute('foskym-custom-levels.expText') || app.translator.trans('foskym-custom-levels.lib.defaults.exp')[0];
+    let expFormula = app.forum.attribute('foskym-custom-levels.expFormula') || app.translator.trans('foskym-custom-levels.lib.defaults.expFormula')[0];
+    let levelFormula = app.forum.attribute('foskym-custom-levels.levelFormula') || app.translator.trans('foskym-custom-levels.lib.defaults.levelFormula')[0];
 
     expFormula = expFormula
         .replace('[commentCount]', user.commentCount())
@@ -38,14 +39,15 @@ export default class LevelBar extends Component {
         expPercent = (eval(levelFormula) - expLevel) * 100;
     }
 
+    expText = expText.replace('[expTotal]', expTotal);
+    if (levelText.indexOf('[level]') > -1) levelText = levelText.replace('[level]', expLevel);
+    else levelText = levelText + ' ' + expLevel;
 
     return (
-      <Tooltip text={app.translator.trans('foskym-custom-levels.forum.desc.expText', { expTotal })}>
+      <Tooltip text={expText}>
         <div class="CustomLevel-level">
           <span class="CustomLevel-text">
-            <span class="CustomLevel-levelText">{pointsText}</span>
-            &nbsp;
-            <span class="CustomLevel-levelPoints">{expLevel}</span>
+            {levelText}
           </span>
           <div class="CustomLevel-bar CustomLevel-bar--empty"></div>
           <div class="CustomLevel-bar" style={'width: ' + expPercent + '%;'}></div>
