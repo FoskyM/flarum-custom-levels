@@ -23,7 +23,8 @@ return [
     new Extend\Locales(__DIR__.'/locale'),
 
     (new Extend\Settings())
-        ->serializeToForum('foskym-custom-levels.pointsText', 'foskym-custom-levels.pointsText')
+        ->serializeToForum('foskym-custom-levels.levelText', 'foskym-custom-levels.levelText')
+        ->serializeToForum('foskym-custom-levels.expText', 'foskym-custom-levels.expText')
         ->serializeToForum('foskym-custom-levels.expFormula', 'foskym-custom-levels.expFormula')
         ->serializeToForum('foskym-custom-levels.levelFormula', 'foskym-custom-levels.levelFormula'),
 ];
