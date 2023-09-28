@@ -17,8 +17,10 @@ export default class LevelBar extends Component {
     expFormula = expFormula
         .replace('[commentCount]', user.commentCount())
         .replace('[discussionCount]', user.discussionCount());
-    if (user.money) expFormula = expFormula.replace('[money]', user.money());
-    if (user.likesReceived) expFormula = expFormula.replace('[likesReceived]', user.likesReceived());
+    if ('antoinefr-money' in flarum.extensions)
+      expFormula = expFormula.replace('[money]', user.attribute('money') || 0);
+    if ('clarkwinkelmann-likes-received' in flarum.extensions)
+      expFormula = expFormula.replace('[likesReceived]', user.attribute('likesReceived') || 0);
 
     let expTotal = Math.floor(eval(expFormula));
     let expLevel = 0;
