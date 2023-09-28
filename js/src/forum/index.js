@@ -10,4 +10,10 @@ app.initializers.add('foskym/flarum-custom-levels', () => {
     if (!user) return;
     view.children.push(LevelBar.component({ user }));
   });
+
+  extend(UserCard.prototype, 'infoItems', function (items) {
+    const user = this.attrs.user;
+    if (!user) return;
+    items.add('custom-levels', LevelBar.component({ user: this.attrs.user }));
+  });
 });
