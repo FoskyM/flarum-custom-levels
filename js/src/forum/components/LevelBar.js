@@ -36,6 +36,7 @@ export default class LevelBar extends Component {
         }
         expLevel = Math.floor(n - 1);
         expPercent = (eval(levelFormula.replace('[level]', expLevel)) - expLevel) * 100;
+        if (expPercent > 100) expPercent = (eval(levelFormula.replace('[level]', expLevel)) - expLevel - 1) * 100;
     } else {
         expLevel = Math.floor(eval(levelFormula));
         expPercent = (eval(levelFormula) - expLevel) * 100;
