@@ -52,8 +52,9 @@ export default class LevelBar extends Component {
           <span class="CustomLevel-text">
             {levelText}
           </span>
-          <div class="CustomLevel-bar CustomLevel-bar--empty"></div>
-          <div class="CustomLevel-bar" style={'width: ' + expPercent + '%;'}></div>
+          <div class="CustomLevel-bar">
+            <div class="CustomLevel-bar-value" style={'width: ' + expPercent + '%;'}></div>
+          </div>
         </div>
       </Tooltip>
     );
