@@ -15,14 +15,11 @@ export default class LevelBar extends Component {
     let levelFormula = app.forum.attribute('foskym-custom-levels.levelFormula') || app.translator.trans('foskym-custom-levels.lib.defaults.levelFormula')[0];
 
     expFormula = expFormula
-        .replace('[commentCount]', user.commentCount())
-        .replace('[discussionCount]', user.discussionCount());
-    if ('antoinefr-money' in flarum.extensions)
-      expFormula = expFormula.replace('[money]', user.attribute('money') || 0);
-    if ('clarkwinkelmann-likes-received' in flarum.extensions)
-      expFormula = expFormula.replace('[likesReceived]', user.attribute('likesReceived') || 0);
-    if ('fof-best-answer' in flarum.extensions)
-      expFormula = expFormula.replace('[bestAnswerCount]', user.attribute('bestAnswerCount') || 0);
+      .replace('[commentCount]', user.commentCount())
+      .replace('[discussionCount]', user.discussionCount())
+      .replace('[money]', 'antoinefr-money' in flarum.extensions ? user.attribute('money') || 0 : 0)
+      .replace('[likesReceived]', 'clarkwinkelmann-likes-received' in flarum.extensions ? user.attribute('likesReceived') || 0 : 0)
+      .replace('[bestAnswerCount]', 'fof-best-answer' in flarum.extensions ? user.attribute('bestAnswerCount') || 0 : 0);
 
     let expTotal = Math.floor(eval(expFormula));
     let expLevel = 0;
