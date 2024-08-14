@@ -17,3 +17,5 @@ foskym-custom-levels:
       exp: "[expTotal] 经验"
       expFormula: "[discussionCount] * 40 + [commentCount] / 20"
       levelFormula: "[expTotal] / (100 * [level])"
+    error:
+      calculation: 经验等级计算出错，请检查公式。

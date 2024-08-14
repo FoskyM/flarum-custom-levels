@@ -17,3 +17,5 @@ foskym-custom-levels:
       exp: "[expTotal] Exp"
       expFormula: "[discussionCount] * 40 + [commentCount] / 20"
       levelFormula: "[expTotal] / (100 * [level])"
+    error:
+      calculation: The calculation of exp level is wrong, please check the formula.
