@@ -4,7 +4,7 @@ import PostUser from 'flarum/forum/components/PostUser';
 import UserCard from 'flarum/forum/components/UserCard';
 import CommentPost from 'flarum/forum/components/CommentPost';
 import Post from 'flarum/common/models/Post';
-import LevelBar from './components/LevelBar';
+import LevelBar from '../common/components/LevelBar';
 
 app.initializers.add('foskym/flarum-custom-levels', () => {
   extend(PostUser.prototype, 'view', function (view) {

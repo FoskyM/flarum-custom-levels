@@ -11,6 +11,9 @@ foskym-custom-levels:
       expFormulaDesc3: Need Plugins（[money] [likesReceived] [bestAnswerCount]）
       levelFormula: Enter the formula of level（e.g.「[expTotal] / (100 + 5 * [level])」）
       levelFormulaDesc: You can use these variables [expTotal] [level]
+    
+    preview: Preview(need to save)
+
   lib:
     defaults:
       level: Lv.

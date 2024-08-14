@@ -11,6 +11,9 @@ foskym-custom-levels:
       expFormulaDesc3: 需安装插件（[money] [likesReceived] [bestAnswerCount]）
       levelFormula: 输入等级的计算公式（例如「[expTotal] / (100 + 5 * [level])」）
       levelFormulaDesc: 可用变量 [expTotal] [level]
+        
+    preview: 预览（需保存）
+
   lib:
     defaults:
       level: Lv.
