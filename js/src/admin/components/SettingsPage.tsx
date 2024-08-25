@@ -3,6 +3,7 @@ import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import Alert from 'flarum/common/components/Alert';
 import Button from 'flarum/common/components/Button';
+import Switch from 'flarum/common/components/Switch';
 import FieldSet from 'flarum/common/components/FieldSet';
 import type { SaveSubmitEvent } from 'flarum/admin/components/AdminPage';
 import type { AlertIdentifier } from 'flarum/common/states/AlertManagerState';
@@ -13,26 +14,19 @@ import LevelBar from '../../common/components/LevelBar';
 import avatar from 'flarum/common/helpers/avatar';
 
 export default class SettingsPage extends ExtensionPage {
+  user = app.session.user;
   oninit(vnode: Mithril.Vnode) {
     super.oninit(vnode);
   }
 
   refresh() {
-    m.redraw();
+    app.store.find('users', app.session.user.id()).then((user) => {
+      this.user = user;
+      m.redraw();
+    });
   }
 
   content() {
-    const user = app.session.user;
-    const settings = {} as any;
-    const keys = ['levelText', 'expText', 'expFormula', 'levelFormula'];
-    const defaults_keys = ['level', 'exp', 'expFormula', 'levelFormula'];
-    const prefix = 'foskym-custom-levels.';
-    keys.forEach((key) => {
-      settings[key] = app.data.settings[prefix + key] || extractText(app.translator.trans('foskym-custom-levels.lib.defaults.' + defaults_keys[keys.indexOf(key)]));
-    });
-
-    console.log(settings);
-
     return (
       <div className="ExtensionPage-settings">
         <div className="container">
@@ -83,13 +77,21 @@ export default class SettingsPage extends ExtensionPage {
                 placeholder={app.translator.trans('foskym-custom-levels.lib.defaults.levelFormula')}
               />
             </div>
-            
+
+            <div className="Form-group">
+              <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.roundDesc')}</div>
+              <Switch
+                state={!!this.setting('foskym-custom-levels.round')() && this.setting('foskym-custom-levels.round')() !== '0'}
+                onchange={this.setting('foskym-custom-levels.round')}
+              >
+                {app.translator.trans('foskym-custom-levels.admin.settings.round')}
+              </Switch>
+            </div>
+
             <div className="Form-group">
               <label>{app.translator.trans('foskym-custom-levels.admin.preview')}</label>
-              <div style="margin-left: 6px">
-                {avatar(user)}
-              </div>
-              {LevelBar.component({ user: user, settings: settings })}
+              <div style="margin-left: 6px">{avatar(this.user)}</div>
+              {LevelBar.component({ user: this.user })}
             </div>
 
             {this.submitButton()}
