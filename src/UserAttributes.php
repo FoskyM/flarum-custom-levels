@@ -33,6 +33,7 @@ class UserAttributes
         try {
             $expFormula = $this->settings->get('foskym-custom-levels.expFormula');
             $levelFormula = $this->settings->get('foskym-custom-levels.levelFormula');
+            $isRound = $this->settings->get('foskym-custom-levels.round') === '1';
 
             if (!$expFormula || !$levelFormula) {
                 throw new \Exception('Formula settings are missing.');
@@ -58,6 +59,10 @@ class UserAttributes
 
             $expPercent = ($expLevel - floor($expLevel)) * 100;
             $expLevel = floor($expLevel);
+
+            if ($isRound) {
+                $expTotal = round($expTotal);
+            }
 
         } catch (\Exception $e) {
             $expLevel = -1;

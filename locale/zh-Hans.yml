@@ -9,8 +9,10 @@ foskym-custom-levels:
       expFormulaDesc1: 你可以使用以下变量：
       expFormulaDesc2: 原生（[discussionCount] [commentCount]）
       expFormulaDesc3: 需安装插件（[money] [likesReceived] [bestAnswerCount]）
-      levelFormula: 输入等级的计算公式（例如「[expTotal] / (100 + 5 * [level])」）
-      levelFormulaDesc: 可用变量 [expTotal] [level]
+      levelFormula: 输入等级的计算公式（例如「log([expTotal], 2)」）
+      levelFormulaDesc: 可用变量 [expTotal]
+      round: 四舍五入
+      roundDesc: 计算经验时四舍五入
         
     preview: 预览（需保存）
 
@@ -19,6 +21,6 @@ foskym-custom-levels:
       level: Lv.
       exp: "[expTotal] 经验"
       expFormula: "[discussionCount] * 40 + [commentCount] / 20"
-      levelFormula: "[expTotal] / (100 * [level])"
+      levelFormula: "log([expTotal], 2)"
     error:
       calculation: 经验等级计算出错，请检查公式。

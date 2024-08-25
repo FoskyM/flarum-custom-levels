@@ -10,7 +10,6 @@ export default class LevelBar extends Component {
 
   view() {
     const user = this.attrs.user;
-    console.log(user.expLevel());
 
     let error = false;
     let levelText, expText;
