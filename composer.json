@@ -3,7 +3,8 @@
     "description": "Flarum Custom Levels. Custom calculation formulas can be set.",
     "type": "flarum-extension",
     "require": {
-        "flarum/core": "^1.2.0"
+        "flarum/core": "^1.2.0",
+        "nxp/math-executor": "^2.3"
     },
     "autoload": {
         "psr-4": {

@@ -14,15 +14,19 @@ namespace FoskyM\CustomLevels;
 use Flarum\Extend;
 use Flarum\User\User;
 use Flarum\Api\Serializer\UserSerializer;
+use FoskyM\CustomLevels\UserAttributes;
+
+use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\Extension\ExtensionManager;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/less/forum.less'),
+        ->js(__DIR__ . '/js/dist/forum.js')
+        ->css(__DIR__ . '/less/forum.less'),
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/less/admin.less'),
-    new Extend\Locales(__DIR__.'/locale'),
+        ->js(__DIR__ . '/js/dist/admin.js')
+        ->css(__DIR__ . '/less/admin.less'),
+    new Extend\Locales(__DIR__ . '/locale'),
 
     (new Extend\Settings())
         ->serializeToForum('foskym-custom-levels.levelText', 'foskym-custom-levels.levelText')
@@ -31,17 +35,5 @@ return [
         ->serializeToForum('foskym-custom-levels.levelFormula', 'foskym-custom-levels.levelFormula'),
 
     (new Extend\ApiSerializer(UserSerializer::class))
-        ->attributes(function ($serializer, $user, $attributes) {
-            $expLevel = 0;
-            $expTotal = 0;
-            $expPercent = 0;
-            $attributes = array_merge($attributes, [
-                'expLevel' => $expLevel,
-                'expTotal' => $expTotal,
-                'expPercent' => $expPercent,
-            ]);
-            
-
-            return $attributes;
-        }),
+        ->attributes(UserAttributes::class),
 ];
