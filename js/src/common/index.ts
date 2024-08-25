@@ -1,5 +1,2 @@
-import app from 'flarum/common/app';
+export { default as extend } from './extend';
 
-app.initializers.add('foskym/flarum-custom-levels', () => {
-  console.log('[foskym/flarum-custom-levels] Hello, forum and admin!');
-});

@@ -12,6 +12,8 @@
 namespace FoskyM\CustomLevels;
 
 use Flarum\Extend;
+use Flarum\User\User;
+use Flarum\Api\Serializer\UserSerializer;
 
 return [
     (new Extend\Frontend('forum'))
@@ -27,4 +29,19 @@ return [
         ->serializeToForum('foskym-custom-levels.expText', 'foskym-custom-levels.expText')
         ->serializeToForum('foskym-custom-levels.expFormula', 'foskym-custom-levels.expFormula')
         ->serializeToForum('foskym-custom-levels.levelFormula', 'foskym-custom-levels.levelFormula'),
+
+    (new Extend\ApiSerializer(UserSerializer::class))
+        ->attributes(function ($serializer, $user, $attributes) {
+            $expLevel = 0;
+            $expTotal = 0;
+            $expPercent = 0;
+            $attributes = array_merge($attributes, [
+                'expLevel' => $expLevel,
+                'expTotal' => $expTotal,
+                'expPercent' => $expPercent,
+            ]);
+            
+
+            return $attributes;
+        }),
 ];
