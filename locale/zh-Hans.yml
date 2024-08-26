@@ -22,7 +22,7 @@ foskym-custom-levels:
       1: 当帖子/回复被隐藏或删除时（默认）
       2: 当帖子/回复被永久删除时
         
-    preview: 预览（需保存）
+    preview: 预览
 
     pages:
       index: 首页
@@ -40,4 +40,4 @@ foskym-custom-levels:
       level: Lv.
       exp: "[expTotal] 经验"
     error:
-      calculation: 经验等级计算出错，请检查公式。
+      calculation: 经验等级计算出错。

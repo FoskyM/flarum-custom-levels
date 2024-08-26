@@ -4,13 +4,40 @@ foskym-custom-levels:
       levelText: Enter the text to be displayed for the levels (e.g. Rank, Level)
       levelDesc: Available variables：[level]
       expText: Enter the text to be displayed for the exp（e.g.「[expTotal] Exp」）
-      expDesc: Available variables：[expTotal]
+      expDesc: Available variables：[expTotal] [expPercent] [nextLevel] [expToNextLevel]
+      expForPost: The exp gained for each post
+      expForPostDesc: Pure number, no decimal. Or range, e.g.「[1, 10]」means a random number between 1 and 10
+      postMinLength: The minimum length of a post, 0 means no limit
+      postMaxTimes: The maximum number of posts that can be made per day, 0 means no limit
+      expForDiscussion: The exp gained for each discussion
+      expForDiscussionDesc: Pure number, no decimal. Or range, e.g.「[1, 10]」means a random number between 1 and 10
+      discussionMaxTimes: The maximum number of discussions that can be made per day, 0 means no limit
+      expForLike: The exp gained when being liked
+      expForLikeDesc: Requires flarum/likes extension. Pure number, no decimal. Or range, e.g.「[1, 10]」means a random number between 1 and 10
+      autoRemove: Auto remove exp
+      cascadeRemove: When a discussion is removed, remove the exp of the replies
+
+    auto_remove:
+      0: Never remove exp
+      1: When a post/reply is hidden or deleted (default)
+      2: When a post/reply is permanently deleted
     
-    preview: Preview(need to save)
+    preview: Preview
+
+    pages:
+      index: Home
+      levels: Levels
+
+    levels:
+      edit_level: Edit Level
+      delete_confirmation: Confirm to delete this level?
+      add_button: Add Level
+      name: Level Name
+      min_exp_required: Required Exp
 
   lib:
     defaults:
       level: Lv.
       exp: "[expTotal] Exp"
     error:
-      calculation: The calculation of exp level is wrong, please check the formula.
+      calculation: The calculation of exp level is wrong.
