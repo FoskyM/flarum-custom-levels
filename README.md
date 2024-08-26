@@ -2,42 +2,20 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/foskym/flarum-custom-levels.svg)](https://packagist.org/packages/foskym/flarum-custom-levels) [![Total Downloads](https://img.shields.io/packagist/dt/foskym/flarum-custom-levels.svg)](https://packagist.org/packages/foskym/flarum-custom-levels)
 
-A [Flarum](http://flarum.org) extension. Flarum Custom Levels. Custom calculation formulas can be set.
+A [Flarum](http://flarum.org) extension. Flarum Custom Levels, levels can be customized, and can trigger events.
 
 ## Usage
-### set the display format & formula of level/exp
-![image](https://github.com/user-attachments/assets/f26b7ab3-f857-4af8-896b-23f6c9344081)
+### set the display format & reward exp, then run the command `php flarum foskym:custom-levels:refresh`
+![image](https://github.com/user-attachments/assets/3ea0fee3-b852-4390-bf22-b6c0b97795d3)
 
-##### Nonlinear
-![image](https://github.com/user-attachments/assets/c51bbd3e-709c-48cc-8164-94941b5625fd)
+### set the levels
+![image](https://github.com/user-attachments/assets/dfdeeb12-8555-428e-9702-266b58fa3f92)
 
-##### Average
-![image](https://github.com/user-attachments/assets/9af99bf2-556a-4dc7-a0ea-43ed037d991c)
+### you can see the exp logs
+![image](https://github.com/user-attachments/assets/9c718859-05d5-42a7-bba1-eb68f377e6e6)
 
-### it's an example
-![Snipaste_2023-09-28_12-19-05](https://github.com/FoskyM/flarum-custom-levels/assets/39661663/38b14508-1900-48b5-aee5-6e7c2868091b)
-
-### Variables Support
-- core
-   - [discussionCount]
-   - [commntCount]
-- antoinefr-money
-   - [money]
-- clarkwinkelmann-likes-received
-   - [likesReceived]
-- fof-best-answer
-   - [bestAnswerCount]
-
-### Calculation Support
-- Support for +, -, *, /, % and power (^) operators
-- Logical operators (==, !=, <, <, >=, <=, &&, ||, !)
-- Support for most PHP math functions
-- Support for BCMath Arbitrary Precision Math
-- Conditional If logic
-- Unary Plus and Minus (e.g. +3 or -sin(12))
-- Pi ($pi) and Euler's number ($e) support to 11 decimal places
-
-For more, please see [MathExecutor](https://github.com/neonxp/MathExecutor)
+### Support
+- askvortsov/flarum-auto-moderator
 
 ## Installation
 

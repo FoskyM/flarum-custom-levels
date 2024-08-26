@@ -6,13 +6,12 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Extension\ExtensionManager;
 use Flarum\User\User;
 use Flarum\Api\Serializer\UserSerializer;
-use NXP\MathExecutor;
+use FoskyM\CustomLevels\Model\Level;
 
 class UserAttributes
 {
     protected $settings;
     protected $extensionManager;
-    protected $executor;
 
     public function __construct(
         SettingsRepositoryInterface $settings,
@@ -27,53 +26,48 @@ class UserAttributes
         $expLevel = 0;
         $expTotal = 0;
         $expPercent = 0;
-
-        $executor = new MathExecutor();
+        $expNext = '';
+        $expNextNeed = 0;
 
         try {
-            $expFormula = $this->settings->get('foskym-custom-levels.expFormula');
-            $levelFormula = $this->settings->get('foskym-custom-levels.levelFormula');
-            $isRound = $this->settings->get('foskym-custom-levels.round') === '1';
+            $expTotal = $user->exp;
+            $levels = Level::orderBy('min_exp_required', 'desc')->get();
+            $level = $levels->where('min_exp_required', '<=', $expTotal)->sortByDesc('min_exp_required')->first();
 
-            if (!$expFormula || !$levelFormula) {
-                throw new \Exception('Formula settings are missing.');
+            if ($level) {
+                $expLevel = $level->name;
             }
 
-            $discussionCount = $user->discussion_count ?? 0;
-            $commentCount = $user->comment_count ?? 0;
-            $money = $this->extensionManager->isEnabled('antoinefr-money') ? ($user->money ?? 0) : 0;
-            $likesReceived = $this->extensionManager->isEnabled('clarkwinkelmann-likes-received') ? ($user->clarkwinkelmann_likes_received_count ?? 0) : 0;
-            $bestAnswerCount = $this->extensionManager->isEnabled('fof-best-answer') ? ($user->best_answer_count ?? 0) : 0;
+            $levelNext = $levels->where('min_exp_required', '>', $expTotal)->sortBy('min_exp_required')->first();
 
-            $expFormula = str_replace('[discussionCount]', $discussionCount, $expFormula);
-            $expFormula = str_replace('[commentCount]', $commentCount, $expFormula);
-            $expFormula = str_replace('[money]', $money, $expFormula);
-            $expFormula = str_replace('[likesReceived]', $likesReceived, $expFormula);
-            $expFormula = str_replace('[bestAnswerCount]', $bestAnswerCount, $expFormula);
-
-            $expTotal = $executor->execute($expFormula);
-
-            $levelFormula = str_replace('[expTotal]', $expTotal, $levelFormula);
-
-            $expLevel = $executor->execute($levelFormula);
-
-            $expPercent = ($expLevel - floor($expLevel)) * 100;
-            $expLevel = floor($expLevel);
-
-            if ($isRound) {
-                $expTotal = round($expTotal);
+            if ($levelNext) {
+                $expPercent = $level->min_exp_required ? round(($expTotal - $level->min_exp_required) / ($levelNext->min_exp_required - $level->min_exp_required) * 100) : 0;
+                $expNext = $levelNext->name;
+                $expNextNeed = $levelNext->min_exp_required - $expTotal;
+            } else {
+                $expNext = $levels->first()->name;
+                $expNextNeed = $levels->first()->min_exp_required - $expTotal;
+                if ($expNextNeed < 0) {
+                    $expNextNeed = 0;
+                    $expNext = '-';
+                    $expPercent = 100;
+                }
             }
 
         } catch (\Exception $e) {
             $expLevel = -1;
             $expTotal = -1;
             $expPercent = -1;
+            $expNext = '';
+            $expNextNeed = -1;
         }
 
         $attributes += [
             'expLevel' => $expLevel,
             'expTotal' => $expTotal,
             'expPercent' => $expPercent,
+            'expNext' => $expNext,
+            'expNextNeed' => $expNextNeed
         ];
 
         return $attributes;

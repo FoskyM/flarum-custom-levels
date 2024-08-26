@@ -3,7 +3,7 @@
 /*
  * This file is part of foskym/flarum-custom-levels.
  *
- * Copyright (c) 2023 FoskyM.
+ * Copyright (c) 2024 FoskyM.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -34,6 +34,33 @@ return [
         ->serializeToForum('foskym-custom-levels.expFormula', 'foskym-custom-levels.expFormula')
         ->serializeToForum('foskym-custom-levels.levelFormula', 'foskym-custom-levels.levelFormula'),
 
+    (new Extend\Console())
+        ->command(Command\RefreshExpCommand::class),
+
+    (new Extend\Model(User::class))
+        ->cast('exp', 'int'),
+
     (new Extend\ApiSerializer(UserSerializer::class))
-        ->attributes(UserAttributes::class),
+        ->attributes(UserAttributes::class)
+        ->attribute('exp', function (UserSerializer $serializer, User $user) {
+            return (int) $user->exp;
+        }),
+
+    (new Extend\Routes('api'))
+        ->get('/exp/refresh', 'custom-levels.exp.refresh', Api\Controller\RefreshExpController::class)
+
+        ->get('/exp-logs', 'custom-levels.exp-logs.list', Api\Controller\ListExpLogsController::class)
+
+        ->get('/levels', 'custom-levels.levels.list', Api\Controller\ListLevelsController::class)
+        ->post('/levels', 'custom-levels.levels.create', Api\Controller\CreateLevelController::class)
+        ->patch('/levels/{id}', 'custom-levels.levels.update', Api\Controller\UpdateLevelController::class)
+        ->delete('/levels/{id}', 'custom-levels.levels.delete', Api\Controller\DeleteLevelController::class),
+
+    (new Extend\Event())
+        ->listen(Event\ExpUpdated::class, Listeners\ExpUpdatedListener::class),
+
+    (new Extend\Notification())
+        ->type(Notification\LevelUpdatedNotification::class, Api\Serializer\LevelSerializer::class, ['alert']),
+
+    require(__DIR__ . '/src/Integration/Integrations.php')
 ];

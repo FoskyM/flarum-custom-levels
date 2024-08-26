@@ -5,22 +5,78 @@ foskym-custom-levels:
       levelDesc: 可用变量：[level]
       expText: 输入经验的展示格式（例如「[expTotal] 经验」）
       expDesc: 可用变量：[expTotal]
-      expFormula: 输入经验的计算公式（例如「[discussionCount] * 40 + [commentCount] / 20」）
-      expFormulaDesc1: 你可以使用以下变量：
-      expFormulaDesc2: 原生（[discussionCount] [commentCount]）
-      expFormulaDesc3: 需安装插件（[money] [likesReceived] [bestAnswerCount]）
-      levelFormula: 输入等级的计算公式（例如「log([expTotal], 2)」）
-      levelFormulaDesc: 可用变量 [expTotal]
-      round: 四舍五入
-      roundDesc: 计算经验时四舍五入
+      expTooltip: 经验描述的展示格式（例如「当前 [expTotal] 经验，下一等级([nextLevel])还需要 [expToNextLevel] 经验」）
+      expTooltipDesc: 可用变量：[expTotal] [expPercent] [nextLevel] [expToNextLevel]
+      expForPost: 每发表一篇帖子获得的经验值
+      expForPostDesc: 纯数字，不支持小数。或者区间，例如「[1, 10]」表示 1 到 10 之间的随机数
+      postMinLength: 发表帖子的最小长度，0 表示不限制
+      postMaxTimes: 每日可获得经验发帖次数上限，0 表示不限制
+      expForDiscussion: 每发表一篇主题获得的经验值
+      expForDiscussionDesc: 纯数字，不支持小数。或者区间，例如「[1, 10]」表示 1 到 10 之间的随机数
+      discussionMaxTimes: 每日可获得经验发主题次数上限，0表示不限制
+      expForLike: 被点赞时获得的经验值
+      expForLikeDesc: 需要 flarum/likes 扩展程序。纯数字，不支持小数。或者区间，例如「[1, 10]」表示 1 到 10 之间的随机数
+      autoRemove: 自动扣除经验
+      cascadeRemove: 当主题被移除时，扣除回帖的经验
+      
+    auto_remove:
+      0: 从不扣除经验
+      1: 当帖子/回复被隐藏或删除时（默认）
+      2: 当帖子/回复被永久删除时
         
-    preview: 预览（需保存）
+    preview: 预览
+
+    pages:
+      index: 首页
+      levels: 等级
+
+    levels:
+      edit_level: 编辑等级
+      delete_confirmation: 确认删除等级？
+      add_button: 添加等级
+      name: 等级名称
+      min_exp_required: 所需经验值
+
+    automoderator:
+      metric_name: 经验值
+      action_name: 给予经验
+
+  forum:
+    notifications:
+      level_updated: 恭喜！您已升级到 {level}！
+    settings:
+      notify_level_updated: 等级升级时通知
+    label:
+      exp_logs: 经验记录
+    log:
+      exp: 经验值变动
+      reason: 原因
+      time: 时间
+      view: 查看
+      load_more: 加载更多
+      no_more: 没有更多了
+      no_records: 暂无记录
+      type:
+        system_clear: 系统清除
+        system_refresh: 系统清算
+        automoderator: 自动发放
+        post_posted: 回复帖子 
+        post_deleted: 帖子被删除
+        post_hidden: 帖子被隐藏
+        post_restored: 帖子被恢复
+        discussion_started: 发表主题
+        discussion_deleted: 主题被删除
+        discussion_hidden: 主题被隐藏
+        discussion_restored: 主题被恢复
+        comment_deleted_in_deleted_discussion: 某主题下的回复随主题一起被删除
+        post_liked: 帖子被点赞
+        post_unliked: 帖子被取消点赞
+        admin_edit: 管理员编辑
 
   lib:
     defaults:
       level: Lv.
       exp: "[expTotal] 经验"
-      expFormula: "[discussionCount] * 40 + [commentCount] / 20"
-      levelFormula: "log([expTotal], 2)"
+      tooltip: "当前 [expTotal] 经验，下一等级([nextLevel])还需要 [expToNextLevel] 经验"
     error:
-      calculation: 经验等级计算出错，请检查公式。
+      calculation: 经验等级计算出错。
