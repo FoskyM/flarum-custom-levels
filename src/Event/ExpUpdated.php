@@ -15,9 +15,11 @@ use Flarum\User\User;
 class ExpUpdated
 {
     public $user;
+    public $exp;
 
-    public function __construct(User $user = null)
+    public function __construct(User $user = null, int $exp = 0)
     {
         $this->user = $user;
+        $this->exp = $exp;
     }
 }

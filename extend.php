@@ -54,5 +54,8 @@ return [
         ->patch('/levels/{id}', 'custom-levels.levels.update', Api\Controller\UpdateLevelController::class)
         ->delete('/levels/{id}', 'custom-levels.levels.delete', Api\Controller\DeleteLevelController::class),
 
+    (new Extend\Event())
+        ->listen(Event\ExpUpdated::class, Listeners\CheckLevel::class),
+
     require(__DIR__ . '/src/Integration/Integrations.php')
 ];

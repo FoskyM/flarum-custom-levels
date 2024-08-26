@@ -81,16 +81,10 @@ class GiveExp
     public function giveExp(?User $user, int $exp): bool
     {
         if (!is_null($user)) {
-            $recent_level = Level::where('min_exp_required', '<=', $user->exp)->orderBy('min_exp_required', 'desc')->first();
             $user->exp += $exp;
-            $current_level = Level::where('min_exp_required', '<=', $user->exp)->orderBy('min_exp_required', 'desc')->first();
             $user->save();
 
-            $this->events->dispatch(new ExpUpdated($user));
-            if ($recent_level->id != $current_level->id) {
-                $this->events->dispatch(new LevelUpdated($user, $recent_level, $current_level));
-            }
-
+            $this->events->dispatch(new ExpUpdated($user, $exp));
             return true;
         }
 
