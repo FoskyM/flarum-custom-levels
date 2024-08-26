@@ -33,6 +33,8 @@ use FoskyM\CustomLevels\Event\LevelUpdated;
 use FoskyM\CustomLevels\Event\ExpUpdated;
 use FoskyM\CustomLevels\AutoRemoveEnum;
 use FoskyM\CustomLevels\Model\Level;
+use FoskyM\CustomLevels\Model\ExpLog;
+use Carbon\Carbon;
 
 class RefreshExpCommand extends Command
 {
@@ -75,6 +77,18 @@ class RefreshExpCommand extends Command
         return $value;
     }
 
+    private function expLog($user, $exp, $recent_exp, $current_exp, $type)
+    {
+        $exp_log = new ExpLog();
+        $exp_log->user_id = $user->id;
+        $exp_log->exp = $exp;
+        $exp_log->old_exp = $recent_exp;
+        $exp_log->new_exp = $current_exp;
+        $exp_log->type = $type;
+        $exp_log->relationship = [];
+        $exp_log->created_at = Carbon::now();
+        $exp_log->save();
+    }
     public function handle()
     {
         $progress = $this->output->createProgressBar(User::query()->count());
@@ -86,6 +100,7 @@ class RefreshExpCommand extends Command
             }]);
 
             foreach ($users as $user) {
+                $this->expLog($user, - $user->exp, $user->exp, 0, 'system_clear');
                 $user->exp = 0;
                 foreach ($user->posts as $post) {
                     if ($post->number == 1) {
@@ -100,6 +115,8 @@ class RefreshExpCommand extends Command
 
                 $user->exp += $user->posts->sum('likes_count') * $this->parseValue($this->exp_for_like);
                 $user->save();
+
+                $this->expLog($user, $user->exp, 0, $user->exp, 'system_refresh');
 
                 $progress->advance();
             }

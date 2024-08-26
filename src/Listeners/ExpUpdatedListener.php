@@ -18,8 +18,10 @@ use FoskyM\CustomLevels\Event\LevelUpdated;
 use FoskyM\CustomLevels\Event\ExpUpdated;
 use FoskyM\CustomLevels\AutoRemoveEnum;
 use FoskyM\CustomLevels\Model\Level;
+use FoskyM\CustomLevels\Model\ExpLog;
+use Carbon\Carbon;
 
-class CheckLevel
+class ExpUpdatedListener
 {
     protected SettingsRepositoryInterface $settings;
     protected Dispatcher $events;
@@ -43,5 +45,15 @@ class CheckLevel
         if ($recent_level->id != $current_level->id) {
             $this->events->dispatch(new LevelUpdated($user, $recent_level, $current_level));
         }
+
+        $exp_log = new ExpLog();
+        $exp_log->user_id = $user->id;
+        $exp_log->exp = $exp;
+        $exp_log->old_exp = $recent_exp;
+        $exp_log->new_exp = $current_exp;
+        $exp_log->type = $event->type;
+        $exp_log->relationship = $event->relationship;
+        $exp_log->created_at = Carbon::now();
+        $exp_log->save();
     }
 }

@@ -49,13 +49,15 @@ return [
     (new Extend\Routes('api'))
         ->get('/exp/refresh', 'custom-levels.exp.refresh', Api\Controller\RefreshExpController::class)
 
+        ->get('/exp-logs', 'custom-levels.exp-logs.list', Api\Controller\ListExpLogsController::class)
+
         ->get('/levels', 'custom-levels.levels.list', Api\Controller\ListLevelsController::class)
         ->post('/levels', 'custom-levels.levels.create', Api\Controller\CreateLevelController::class)
         ->patch('/levels/{id}', 'custom-levels.levels.update', Api\Controller\UpdateLevelController::class)
         ->delete('/levels/{id}', 'custom-levels.levels.delete', Api\Controller\DeleteLevelController::class),
 
     (new Extend\Event())
-        ->listen(Event\ExpUpdated::class, Listeners\CheckLevel::class),
+        ->listen(Event\ExpUpdated::class, Listeners\ExpUpdatedListener::class),
 
     require(__DIR__ . '/src/Integration/Integrations.php')
 ];

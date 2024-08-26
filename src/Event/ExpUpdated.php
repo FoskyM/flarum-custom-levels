@@ -16,10 +16,14 @@ class ExpUpdated
 {
     public $user;
     public $exp;
+    public $type;
+    public $relationship;
 
-    public function __construct(User $user = null, int $exp = 0)
+    public function __construct(User $user = null, int $exp = 0, string $type = '', array $relationship = [])
     {
         $this->user = $user;
         $this->exp = $exp;
+        $this->type = $type;
+        $this->relationship = $relationship;
     }
 }

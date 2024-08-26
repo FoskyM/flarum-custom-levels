@@ -50,6 +50,6 @@ class Exp implements ActionDriverInterface
         $user->exp += $exp;
         $user->save();
 
-        resolve('events')->dispatch(new ExpUpdated($user));
+        resolve('events')->dispatch(new ExpUpdated($user, $exp, 'automoderator'));
     }
 }

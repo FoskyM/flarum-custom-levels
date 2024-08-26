@@ -39,6 +39,22 @@ foskym-custom-levels:
       metric_name: 经验值
       action_name: 给予经验
 
+  forum:
+    label:
+      exp_logs: 经验记录
+    log:
+      exp: 经验值变动
+      reason: 原因
+      time: 时间
+      reason:
+        post: 发表帖子
+        discussion: 发表主题
+        like: 被点赞
+        admin: 管理员操作
+        other: 其他
+      load_more: 加载更多
+      no_more: 没有更多了
+
   lib:
     defaults:
       level: Lv.

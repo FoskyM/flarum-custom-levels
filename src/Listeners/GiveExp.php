@@ -78,13 +78,13 @@ class GiveExp
         return $value;
     }
 
-    public function giveExp(?User $user, int $exp): bool
+    public function giveExp(?User $user, int $exp, string $type = '', array $relationship = []): bool
     {
         if (!is_null($user)) {
             $user->exp += $exp;
             $user->save();
 
-            $this->events->dispatch(new ExpUpdated($user, $exp));
+            $this->events->dispatch(new ExpUpdated($user, $exp, $type, $relationship));
             return true;
         }
 
@@ -97,7 +97,9 @@ class GiveExp
             $event->post->number > 1
             && strlen($event->post->content) >= $this->post_min_length
         ) {
-            $this->giveExp($event->actor, $this->exp_for_post);
+            $type = 'post_posted';
+            $relationship = ['post_id' => $event->post->id];
+            $this->giveExp($event->actor, $this->exp_for_post, $type, $relationship);
         }
     }
 
@@ -108,7 +110,9 @@ class GiveExp
             && $event->post->type == 'comment'
             && strlen($event->post->content) >= $this->post_min_length
         ) {
-            $this->giveExp($event->post->user, $this->exp_for_post);
+            $type = 'post_restored';
+            $relationship = ['post_id' => $event->post->id];
+            $this->giveExp($event->post->user, $this->exp_for_post, $type, $relationship);
         }
     }
 
@@ -119,7 +123,9 @@ class GiveExp
             && $event->post->type == 'comment'
             && strlen($event->post->content) >= $this->post_min_length
         ) {
-            $this->giveExp($event->post->user, -1 * $this->exp_for_post);
+            $type = 'post_hidden';
+            $relationship = ['post_id' => $event->post->id];
+            $this->giveExp($event->post->user, -1 * $this->exp_for_post, $type, $relationship);
         }
     }
 
@@ -130,19 +136,25 @@ class GiveExp
             && $event->post->type == 'comment'
             && strlen($event->post->content) >= $this->post_min_length
         ) {
-            $this->giveExp($event->post->user, -1 * $this->exp_for_post);
+            $type = 'post_deleted';
+            $relationship = ['post_id' => $event->post->id];
+            $this->giveExp($event->post->user, -1 * $this->exp_for_post, $type, $relationship);
         }
     }
 
     public function discussionWasStarted(Started $event): void
     {
-        $this->giveExp($event->actor, $this->exp_for_discussion);
+        $type = 'discussion_started';
+        $relationship = ['discussion_id' => $event->discussion->id];
+        $this->giveExp($event->actor, $this->exp_for_discussion, $type, $relationship);
     }
 
     public function discussionWasRestored(DiscussionRestored $event): void
     {
         if ($this->auto_remove == AutoRemoveEnum::HIDDEN) {
-            $this->giveExp($event->discussion->user, $this->exp_for_discussion);
+            $type = 'discussion_restored';
+            $relationship = ['discussion_id' => $event->discussion->id];
+            $this->giveExp($event->discussion->user, $this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, 1);
         }
@@ -151,7 +163,9 @@ class GiveExp
     public function discussionWasHidden(DiscussionHidden $event): void
     {
         if ($this->auto_remove == AutoRemoveEnum::HIDDEN) {
-            $this->giveExp($event->discussion->user, -$this->exp_for_discussion);
+            $type = 'discussion_hidden';
+            $relationship = ['discussion_id' => $event->discussion->id];
+            $this->giveExp($event->discussion->user, -$this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, -1);
         }
@@ -160,7 +174,9 @@ class GiveExp
     public function discussionWasDeleted(DiscussionDeleted $event): void
     {
         if ($this->auto_remove == AutoRemoveEnum::DELETED) {
-            $this->giveExp($event->discussion->user, -$this->exp_for_discussion);
+            $type = 'discussion_deleted';
+            $relationship = ['discussion_id' => $event->discussion->id];
+            $this->giveExp($event->discussion->user, -$this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, -1);
         }
@@ -176,7 +192,9 @@ class GiveExp
                     && $post->number > 1
                     && is_null($post->hidden_at)
                 ) {
-                    $this->giveExp($post->user, $multiply * $this->exp_for_post);
+                    $type = 'comment_deleted_in_deleted_discussion';
+                    $relationship = ['post_id' => $post->id, 'discussion_id' => $discussion->id];
+                    $this->giveExp($post->user, $multiply * $this->exp_for_post, $type, $relationship);
                 }
             }
         }
@@ -190,19 +208,25 @@ class GiveExp
             $user = $event->user;
             $actor = $event->actor;
             $actor->assertCan('edit_exp', $user);
+            $exp = (int) $attributes['exp'] - $user->exp;
             $user->exp = (int) $attributes['exp'];
-
-            $this->events->dispatch(new ExpUpdated($user));
+            $type = 'admin_edit';
+            $relationship = ['actor_id' => $actor->id];
+            $this->events->dispatch(new ExpUpdated($user, $exp, $type, $relationship));
         }
     }
 
     public function postWasLiked(PostWasLiked $event): void
     {
-        $this->giveExp($event->post->user, $this->exp_for_like);
+        $type = 'post_liked';
+        $relationship = ['post_id' => $event->post->id];
+        $this->giveExp($event->post->user, $this->exp_for_like, $type, $relationship);
     }
 
     public function postWasUnliked(PostWasUnliked $event): void
     {
-        $this->giveExp($event->post->user, -1 * $this->exp_for_like);
+        $type = 'post_unliked';
+        $relationship = ['post_id' => $event->post->id];
+        $this->giveExp($event->post->user, -1 * $this->exp_for_like, $type, $relationship);
     }
 }
