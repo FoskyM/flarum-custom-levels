@@ -10,8 +10,10 @@
  */
 namespace FoskyM\CustomLevels\Listeners;
 
+use FoskyM\CustomLevels\Notification\LevelUpdatedNotification;
 use Illuminate\Support\Arr;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\Notification\NotificationSyncer;
 use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\User\User;
 use FoskyM\CustomLevels\Event\LevelUpdated;
@@ -25,11 +27,13 @@ class ExpUpdatedListener
 {
     protected SettingsRepositoryInterface $settings;
     protected Dispatcher $events;
+    protected NotificationSyncer $notifications;
 
-    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events)
+    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events, NotificationSyncer $notifications)
     {
         $this->settings = $settings;
         $this->events = $events;
+        $this->notifications = $notifications;
     }
 
     public function __invoke(ExpUpdated $event): void
@@ -43,6 +47,10 @@ class ExpUpdatedListener
         $recent_level = Level::where('min_exp_required', '<=', $recent_exp)->orderBy('min_exp_required', 'desc')->first();
         $current_level = Level::where('min_exp_required', '<=', $current_exp)->orderBy('min_exp_required', 'desc')->first();
         if ($recent_level->id != $current_level->id) {
+            $this->notifications->sync(
+                new LevelUpdatedNotification($user, $current_level),
+                [$user]
+            );
             $this->events->dispatch(new LevelUpdated($user, $recent_level, $current_level));
         }
 

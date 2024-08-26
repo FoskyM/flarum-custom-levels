@@ -59,5 +59,8 @@ return [
     (new Extend\Event())
         ->listen(Event\ExpUpdated::class, Listeners\ExpUpdatedListener::class),
 
+    (new Extend\Notification())
+        ->type(Notification\LevelUpdatedNotification::class, Api\Serializer\LevelSerializer::class, ['alert']),
+
     require(__DIR__ . '/src/Integration/Integrations.php')
 ];

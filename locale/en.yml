@@ -40,6 +40,10 @@ foskym-custom-levels:
       action_name: Give Exp
 
   forum:
+    notifications:
+      level_updated: Congratulations! You have reached level {level}!
+    settings:
+      notify_level_updated: Notify when level is updated
     label:
       exp_logs: Exp Logs
     log:

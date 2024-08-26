@@ -42,6 +42,10 @@ foskym-custom-levels:
       action_name: 给予经验
 
   forum:
+    notifications:
+      level_updated: 恭喜！您已升级到 {level}！
+    settings:
+      notify_level_updated: 等级升级时通知
     label:
       exp_logs: 经验记录
     log:
