@@ -1,6 +1,6 @@
 {
     "name": "foskym/flarum-custom-levels",
-    "description": "Flarum Custom Levels. Custom calculation formulas can be set.",
+    "description": " Flarum Custom Levels, levels can be customized, and can trigger events.",
     "type": "flarum-extension",
     "require": {
         "flarum/core": "^1.2.0"
