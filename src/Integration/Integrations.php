@@ -46,4 +46,12 @@ if (class_exists('Flarum\Likes\Event\PostWasLiked')) {
     ;
 }
 
+if (class_exists('Askvortsov\AutoModerator\Extend\AutoModerator')) {
+    $extend[] =
+        (new \Askvortsov\AutoModerator\Extend\AutoModerator())
+            ->metricDriver('exp', AutoModerator\Metric\Exp::class)
+            ->actionDriver('exp', AutoModerator\Action\Exp::class)
+        ;
+}
+
 return $extend;

@@ -35,6 +35,10 @@ foskym-custom-levels:
       name: Level Name
       min_exp_required: Required Exp
 
+    automoderator:
+      metric_name: Exp
+      action_name: Give Exp
+
   lib:
     defaults:
       level: Lv.

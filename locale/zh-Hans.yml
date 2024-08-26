@@ -35,6 +35,10 @@ foskym-custom-levels:
       name: 等级名称
       min_exp_required: 所需经验值
 
+    automoderator:
+      metric_name: 经验值
+      action_name: 给予经验
+
   lib:
     defaults:
       level: Lv.
