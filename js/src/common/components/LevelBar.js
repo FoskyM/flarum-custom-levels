@@ -18,9 +18,6 @@ export default class LevelBar extends Component {
     expText = app.forum.attribute('foskym-custom-levels.expText') || extractText(app.translator.trans('foskym-custom-levels.lib.defaults.exp'));
 
     if (
-      isNaN(user.expTotal()) ||
-      isNaN(user.expPercent()) ||
-      isNaN(user.expLevel()) ||
       user.expTotal() < 0 ||
       user.expPercent() < 0 ||
       user.expLevel() < 0
@@ -29,6 +26,10 @@ export default class LevelBar extends Component {
       expText = extractText(app.translator.trans('foskym-custom-levels.lib.error.calculation'));
     } else {
       expText = expText.replace('[expTotal]', user.expTotal());
+      expText = expText.replace('[expPercent]', user.expPercent());
+      expText = expText.replace('[nextLevel]', user.expNext());
+      expText = expText.replace('[expToNextLevel]', user.expNextNeed());
+      
       if (levelText.indexOf('[level]') > -1) levelText = levelText.replace('[level]', user.expLevel());
       else levelText = levelText + ' ' + user.expLevel();
     }
