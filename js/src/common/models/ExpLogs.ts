@@ -6,5 +6,4 @@ export default class ExpLogs extends Model {
   type = Model.attribute<string>('type');
   relationship = Model.attribute<object>('relationship');
   created_at = Model.attribute<string>('created_at');
-  updated_at = Model.attribute<string>('updated_at');
 }

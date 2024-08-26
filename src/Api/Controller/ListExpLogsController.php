@@ -23,7 +23,7 @@ class ListExpLogsController extends AbstractListController
 		$pageSize = 10;
 		$skip = $page * $pageSize;
 		$records = ExpLog::where('user_id', $actor->id)
-			->orderBy('created_at', 'desc')
+			->orderBy('id', 'desc')
 			->skip($skip)
 			->take($pageSize)
 			->get();

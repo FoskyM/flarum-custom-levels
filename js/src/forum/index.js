@@ -5,6 +5,7 @@ import PostUser from 'flarum/forum/components/PostUser';
 import UserCard from 'flarum/forum/components/UserCard';
 import CommentPost from 'flarum/forum/components/CommentPost';
 import Post from 'flarum/common/models/Post';
+import LinkButton from 'flarum/common/components/LinkButton';
 import LevelBar from '../common/components/LevelBar';
 import ExpLogPage from './components/ExpLogPage';
 

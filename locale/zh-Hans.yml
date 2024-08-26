@@ -4,7 +4,9 @@ foskym-custom-levels:
       levelText: 输入等级的展现格式（例如「等级」「Lv.」）
       levelDesc: 可用变量：[level]
       expText: 输入经验的展示格式（例如「[expTotal] 经验」）
-      expDesc: 可用变量：[expTotal] [expPercent] [nextLevel] [expToNextLevel]
+      expDesc: 可用变量：[expTotal]
+      expTooltip: 经验描述的展示格式（例如「当前 [expTotal] 经验，下一等级([nextLevel])还需要 [expToNextLevel] 经验」）
+      expTooltipDesc: 可用变量：[expTotal] [expPercent] [nextLevel] [expToNextLevel]
       expForPost: 每发表一篇帖子获得的经验值
       expForPostDesc: 纯数字，不支持小数。或者区间，例如「[1, 10]」表示 1 到 10 之间的随机数
       postMinLength: 发表帖子的最小长度，0 表示不限制
@@ -46,18 +48,31 @@ foskym-custom-levels:
       exp: 经验值变动
       reason: 原因
       time: 时间
-      reason:
-        post: 发表帖子
-        discussion: 发表主题
-        like: 被点赞
-        admin: 管理员操作
-        other: 其他
+      view: 查看
       load_more: 加载更多
       no_more: 没有更多了
+      no_records: 暂无记录
+      type:
+        system_clear: 系统清除
+        system_refresh: 系统清算
+        automoderator: 自动发放
+        post_posted: 回复帖子 
+        post_deleted: 帖子被删除
+        post_hidden: 帖子被隐藏
+        post_restored: 帖子被恢复
+        discussion_started: 发表主题
+        discussion_deleted: 主题被删除
+        discussion_hidden: 主题被隐藏
+        discussion_restored: 主题被恢复
+        comment_deleted_in_deleted_discussion: 某主题下的回复随主题一起被删除
+        post_liked: 帖子被点赞
+        post_unliked: 帖子被取消点赞
+        admin_edit: 管理员编辑
 
   lib:
     defaults:
       level: Lv.
       exp: "[expTotal] 经验"
+      tooltip: "当前 [expTotal] 经验，下一等级([nextLevel])还需要 [expToNextLevel] 经验"
     error:
       calculation: 经验等级计算出错。

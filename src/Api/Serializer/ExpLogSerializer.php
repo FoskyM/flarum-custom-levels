@@ -26,6 +26,7 @@ class ExpLogSerializer extends AbstractSerializer
             "exp" => $model->exp,
             "old_exp" => $model->old_exp,
             "new_exp" => $model->new_exp,
+            "type" => $model->type,
             "relationship" => $model->relationship,
             "created_at" => $this->formatDate($model->created_at),
         ];

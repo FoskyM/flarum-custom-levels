@@ -37,6 +37,20 @@ app.initializers.add('foskym/flarum-custom-levels', () => {
     .registerSetting(function () {
       return (
         <div className="Form-group">
+          <label>{app.translator.trans('foskym-custom-levels.admin.settings.expTooltip')}</label>
+          <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expTooltipDesc')}</div>
+          <input
+            type="text"
+            className="FormControl"
+            bidi={this.setting('foskym-custom-levels.expTooltip')}
+            placeholder={app.translator.trans('foskym-custom-levels.lib.defaults.tooltip')}
+          />
+        </div>
+      );
+    })
+    .registerSetting(function () {
+      return (
+        <div className="Form-group">
           <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForPost')}</label>
           <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForPostDesc')}</div>
           <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForPost')} />

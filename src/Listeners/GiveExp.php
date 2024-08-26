@@ -98,7 +98,7 @@ class GiveExp
             && strlen($event->post->content) >= $this->post_min_length
         ) {
             $type = 'post_posted';
-            $relationship = ['post_id' => $event->post->id];
+            $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id];
             $this->giveExp($event->actor, $this->exp_for_post, $type, $relationship);
         }
     }
@@ -111,7 +111,7 @@ class GiveExp
             && strlen($event->post->content) >= $this->post_min_length
         ) {
             $type = 'post_restored';
-            $relationship = ['post_id' => $event->post->id];
+            $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id];
             $this->giveExp($event->post->user, $this->exp_for_post, $type, $relationship);
         }
     }
@@ -124,7 +124,7 @@ class GiveExp
             && strlen($event->post->content) >= $this->post_min_length
         ) {
             $type = 'post_hidden';
-            $relationship = ['post_id' => $event->post->id];
+            $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id];
             $this->giveExp($event->post->user, -1 * $this->exp_for_post, $type, $relationship);
         }
     }
@@ -137,7 +137,7 @@ class GiveExp
             && strlen($event->post->content) >= $this->post_min_length
         ) {
             $type = 'post_deleted';
-            $relationship = ['post_id' => $event->post->id];
+            $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id];
             $this->giveExp($event->post->user, -1 * $this->exp_for_post, $type, $relationship);
         }
     }
@@ -219,14 +219,14 @@ class GiveExp
     public function postWasLiked(PostWasLiked $event): void
     {
         $type = 'post_liked';
-        $relationship = ['post_id' => $event->post->id];
+        $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id, 'user_id' => $event->user->id];
         $this->giveExp($event->post->user, $this->exp_for_like, $type, $relationship);
     }
 
     public function postWasUnliked(PostWasUnliked $event): void
     {
         $type = 'post_unliked';
-        $relationship = ['post_id' => $event->post->id];
+        $relationship = ['discussion_id' => $event->post->discussion_id, 'post_number' => $event->post->number, 'post_id' => $event->post->id, 'user_id' => $event->user->id];
         $this->giveExp($event->post->user, -1 * $this->exp_for_like, $type, $relationship);
     }
 }

@@ -39,6 +39,35 @@ foskym-custom-levels:
       metric_name: Exp
       action_name: Give Exp
 
+  forum:
+    label:
+      exp_logs: Exp Logs
+    log:
+      exp: Exp Change
+      reason: Reason
+      time: Time
+      view: View
+      load_more: Load More
+      no_more: No more
+      no_records: No records
+      type:
+        system_clear: System clear
+        system_refresh: System refresh
+        automoderator: Auto moderator
+        post_posted: Post was posted
+        post_deleted: Post was deleted
+        post_hidden: Post was hidden
+        post_restored: Post was restored
+        discussion_started: Discussion has started
+        discussion_deleted: Discussion was deleted
+        discussion_hidden: Discussion was hidden
+        discussion_restored: Discussion was restored
+        comment_deleted_in_deleted_discussion: Comment was deleted in deleted discussion
+        post_liked: Post was liked
+        post_unliked: Post was unliked
+        admin_edit: Admin edited
+        
+
   lib:
     defaults:
       level: Lv.
