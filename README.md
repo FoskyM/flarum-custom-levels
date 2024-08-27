@@ -15,9 +15,11 @@ A [Flarum](http://flarum.org) extension. Flarum Custom Levels, levels can be cus
 ![image](https://github.com/user-attachments/assets/9c718859-05d5-42a7-bba1-eb68f377e6e6)
 
 ### Support
-- [askvortsov/flarum-auto-moderator](https://github.com/askvortsov1/flarum-automod)
-- [xypp/flarum-forum-quests](https://github.com/zxy19/flarum-forum-quests)
-- [xypp/store](https://github.com/zxy19/store)
+- [askvortsov/flarum-auto-moderator](https://github.com/askvortsov1/flarum-automod) Modify `exp` when triggering events
+- [xypp/flarum-forum-quests](https://github.com/zxy19/flarum-forum-quests) Reward `exp` when completing tasks
+- [xypp/store](https://github.com/zxy19/store) Purchase `exp` with `money` in Store
+- [fof/user-directory](https://github.com/FriendsOfFlarum/user-directory) Sorting users by `exp`
+- [nodeloc/flarum-ext-leaderboard](https://github.com/nodeloc/flarum-ext-leaderboard) Sorting users by `exp`
 
 ## Installation
 
