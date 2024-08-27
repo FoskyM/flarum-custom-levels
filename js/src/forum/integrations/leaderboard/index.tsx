@@ -10,4 +10,28 @@ export default function leaderboard(app: ForumApplication) {
     map['least_exp'] = 'exp';
     return map;
   });
+
+  const components = flarum.extensions['nodeloc-leaderboard']?.components as any;
+
+  if (!components) return;
+
+  const LeaderBoardUserCard = components?.LeaderBoardUserCard as any;
+  override(LeaderBoardUserCard.prototype, 'view', function (original) {
+    const user = this.attrs.user;
+    const sort = this.attrs.params.sort;
+    if (sort === 'most_exp' || sort === 'least_exp') {
+      this.attrs.params.sort = 'exp';
+    }
+    return original();
+  });
+
+  const SmallUserCard = components?.SmallUserCard as any;
+  override(SmallUserCard.prototype, 'view', function (original) {
+    const user = this.attrs.user;
+    const sort = this.attrs.params.sort;
+    if (sort === 'most_exp' || sort === 'least_exp') {
+      this.attrs.params.sort = 'exp';
+    }
+    return original();
+  });
 }
