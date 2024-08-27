@@ -67,7 +67,7 @@ foskym-custom-levels:
         post_unliked: Post was unliked
         admin_edit: Admin edited
         forum_quests: Forum quests
-        
+        store_purchase: Purchased in store
 
   lib:
     defaults:
@@ -82,3 +82,7 @@ foskym-custom-levels:
         action_name: Give Exp
       forum-quests:
         reward_name: Exp
+      store:
+        item_name: Exp
+        provider_data:
+          same_as_use_cnt: Same as the times can be used

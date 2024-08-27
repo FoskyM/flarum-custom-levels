@@ -3,6 +3,7 @@ import UserPage from 'flarum/forum/components/UserPage';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import Placeholder from 'flarum/common/components/Placeholder';
 import Button from 'flarum/common/components/Button';
+import LinkButton from 'flarum/common/components/LinkButton';
 import extractText from 'flarum/common/utils/extractText';
 import humanTime from 'flarum/common/utils/humanTime';
 import type Mithril from 'mithril';
@@ -22,7 +23,6 @@ export default class ExpLogPage extends UserPage {
   loadRecords() {
     app.store.find('exp-logs', { page: this.page }).then((records) => {
       this.records = this.records.concat(records);
-      console.log(this.records);
       this.loading = false;
       if (records.length < 10) {
         this.nomore = true;
@@ -67,18 +67,22 @@ export default class ExpLogPage extends UserPage {
                 {app.translator.trans('foskym-custom-levels.forum.log.type.' + record.type())}
                 <span>
                   {record.relationship().post_id ? (
-                    <a href={'/d/' + record.relationship().discussion_id + '/' + record.relationship().post_number} target="_blank">
+                    <LinkButton href={'/d/' + record.relationship().discussion_id + '/' + record.relationship().post_number} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
-                    </a>
+                    </LinkButton>
                   ) : (record.relationship().discussion_id ? (
-                    <a href={'/d/' + record.relationship().discussion_id} target="_blank">
+                    <LinkButton href={'/d/' + record.relationship().discussion_id} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
-                    </a>
-                  ) : (record.type() === 'forum_quests' ? (
-                    <a href={'/quest_page'} target="_blank">
+                    </LinkButton>
+                  ) : (record.type() === 'forum_quests' && 'xypp-forum-quests' in flarum.extensions ? (
+                    <LinkButton href={'/quest_page'} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
-                    </a>
-                  ) : ''))}
+                    </LinkButton>
+                  ) : (record.type() === 'store_purchase' && 'xypp-store' in flarum.extensions ? (
+                    <LinkButton href={'/u/' + m.route.param('username') + '/purchase_history'}>
+                      {app.translator.trans('foskym-custom-levels.forum.log.view')}
+                    </LinkButton>
+                  ) : '')))}
                 </span>
               </p>
               <hr />

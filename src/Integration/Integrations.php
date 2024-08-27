@@ -61,4 +61,11 @@ if (class_exists('Xypp\ForumQuests\Extend\RewardProvider')) {
     ;
 }
 
+if (class_exists('Xypp\Store\Extend\StoreItemProvider')) {
+    $extend[] =
+        (new \Xypp\Store\Extend\StoreItemProvider())
+            ->provide(Integration\Store\StoreProvider::class)
+    ;
+}
+
 return $extend;
