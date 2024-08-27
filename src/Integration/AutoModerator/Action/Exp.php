@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
-namespace FoskyM\CustomLevels\AutoModerator\Action;
+namespace FoskyM\CustomLevels\Integration\AutoModerator\Action;
 
 use Askvortsov\AutoModerator\Action\ActionDriverInterface;
 use FoskyM\CustomLevels\Event\ExpUpdated;
@@ -20,13 +20,13 @@ class Exp implements ActionDriverInterface
 {
     public function translationKey(): string
     {
-        return 'foskym-custom-levels.admin.automoderator.action_name';
+        return 'foskym-custom-levels.lib.integrations.automoderator.action_name';
     }
 
     public function availableSettings(): array
     {
         return [
-            'exp' => 'foskym-custom-levels.admin.automoderator.metric_name',
+            'exp' => 'foskym-custom-levels.lib.integrations.automoderator.metric_name',
         ];
     }
 

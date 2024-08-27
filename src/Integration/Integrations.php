@@ -49,9 +49,23 @@ if (class_exists('Flarum\Likes\Event\PostWasLiked')) {
 if (class_exists('Askvortsov\AutoModerator\Extend\AutoModerator')) {
     $extend[] =
         (new \Askvortsov\AutoModerator\Extend\AutoModerator())
-            ->metricDriver('exp', AutoModerator\Metric\Exp::class)
-            ->actionDriver('exp', AutoModerator\Action\Exp::class)
-        ;
+            ->metricDriver('exp', Integration\AutoModerator\Metric\Exp::class)
+            ->actionDriver('exp', Integration\AutoModerator\Action\Exp::class)
+    ;
+}
+
+if (class_exists('Xypp\ForumQuests\Extend\RewardProvider')) {
+    $extend[] =
+        (new \Xypp\ForumQuests\Extend\RewardProvider())
+            ->provide(Integration\ForumQuests\Rewards\ExpReward::class)
+    ;
+}
+
+if (class_exists('Xypp\Store\Extend\StoreItemProvider')) {
+    $extend[] =
+        (new \Xypp\Store\Extend\StoreItemProvider())
+            ->provide(Integration\Store\StoreProvider::class)
+    ;
 }
 
 return $extend;

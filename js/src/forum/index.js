@@ -11,7 +11,10 @@ import LevelBar from '../common/components/LevelBar';
 import ExpLogPage from './components/ExpLogPage';
 import LevelUpdatedNotification from './components/LevelUpdatedNotification';
 
+import integrations from './integrations';
+
 app.initializers.add('foskym/flarum-custom-levels', () => {
+  integrations();
   app.notificationComponents.levelUpdated = LevelUpdatedNotification;
 
   extend(NotificationGrid.prototype, 'notificationTypes', function (items) {
