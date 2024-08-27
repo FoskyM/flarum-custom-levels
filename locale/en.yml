@@ -86,3 +86,18 @@ foskym-custom-levels:
         item_name: Exp
         provider_data:
           same_as_use_cnt: Same as the times can be used
+      user-directory:
+        most_exp: Most Exp
+        least_exp: Least Exp
+
+fof-user-directory:
+  lib:
+    sort:
+      most_exp: => foskym-custom-levels.lib.integrations.user-directory.most_exp
+      least_exp: => foskym-custom-levels.lib.integrations.user-directory.least_exp
+
+nodeloc-leaderboard:
+  lib:
+    sort:
+      most_exp: => foskym-custom-levels.lib.integrations.user-directory.most_exp
+      least_exp: => foskym-custom-levels.lib.integrations.user-directory.least_exp
