@@ -18,7 +18,11 @@
                 "backgroundColor": "#68945c",
                 "color": "#fff"
             },
-            "category": ""
+            "category": "",
+            "optional-dependencies": [
+                "askvortsov/flarum-auto-moderator",
+                "xypp/forum-quests"
+            ]
         },
         "flarum-cli": {
             "modules": {

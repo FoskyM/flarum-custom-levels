@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
-namespace FoskyM\CustomLevels\AutoModerator\Metric;
+namespace FoskyM\CustomLevels\Integration\AutoModerator\Metric;
 
 use Askvortsov\AutoModerator\Metric\MetricDriverInterface;
 use FoskyM\CustomLevels\Event\ExpUpdated;
@@ -18,7 +18,7 @@ class Exp implements MetricDriverInterface
 {
     public function translationKey(): string
     {
-        return 'foskym-custom-levels.admin.automoderator.metric_name';
+        return 'foskym-custom-levels.lib.integrations.automoderator.metric_name';
     }
 
     public function extensionDependencies(): array

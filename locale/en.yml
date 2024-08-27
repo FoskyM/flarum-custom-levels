@@ -35,10 +35,6 @@ foskym-custom-levels:
       name: Level Name
       min_exp_required: Required Exp
 
-    automoderator:
-      metric_name: Exp
-      action_name: Give Exp
-
   forum:
     notifications:
       level_updated: Congratulations! You have reached level {level}!
@@ -70,6 +66,7 @@ foskym-custom-levels:
         post_liked: Post was liked
         post_unliked: Post was unliked
         admin_edit: Admin edited
+        forum_quests: Forum quests
         
 
   lib:
@@ -78,3 +75,10 @@ foskym-custom-levels:
       exp: "[expTotal] Exp"
     error:
       calculation: The calculation of exp level is wrong.
+    
+    integrations:
+      automoderator:
+        metric_name: Exp
+        action_name: Give Exp
+      forum-quests:
+        reward_name: Exp

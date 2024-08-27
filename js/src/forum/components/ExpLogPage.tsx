@@ -74,7 +74,11 @@ export default class ExpLogPage extends UserPage {
                     <a href={'/d/' + record.relationship().discussion_id} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
                     </a>
-                  ) : '')}
+                  ) : (record.type() === 'forum_quests' ? (
+                    <a href={'/quest_page'} target="_blank">
+                      {app.translator.trans('foskym-custom-levels.forum.log.view')}
+                    </a>
+                  ) : ''))}
                 </span>
               </p>
               <hr />
