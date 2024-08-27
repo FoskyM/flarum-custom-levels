@@ -13,6 +13,7 @@ namespace FoskyM\CustomLevels;
 
 use Flarum\Extend;
 use Flarum\User\User;
+use Flarum\Api\Controller\ListUsersController;
 use Flarum\Api\Serializer\UserSerializer;
 use FoskyM\CustomLevels\UserAttributes;
 
@@ -45,6 +46,9 @@ return [
         ->attribute('exp', function (UserSerializer $serializer, User $user) {
             return (int) $user->exp;
         }),
+    
+    (new Extend\ApiController(ListUsersController::class))
+        ->addSortField('exp'),
 
     (new Extend\Routes('api'))
         ->get('/exp/refresh', 'custom-levels.exp.refresh', Api\Controller\RefreshExpController::class)
