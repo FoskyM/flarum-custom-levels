@@ -37,7 +37,16 @@ foskym-custom-levels:
       name: 等级名称
       min_exp_required: 所需经验值
 
+    permissions:
+      edit_exp: 编辑用户的经验值
+
   forum:
+    user_controls:
+      edit_exp_button: 编辑经验值
+    modal:
+      title: 编辑经验值
+      current: 当前
+      submit_button: 保存
     notifications:
       level_updated: 恭喜！您已升级到 {level}！
     settings:

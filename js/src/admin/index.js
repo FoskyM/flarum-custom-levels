@@ -114,5 +114,13 @@ app.initializers.add('foskym/flarum-custom-levels', () => {
       setting: 'foskym-custom-levels.cascadeRemove',
       label: app.translator.trans('foskym-custom-levels.admin.settings.cascadeRemove'),
       type: 'checkbox',
-    });
+    })
+    .registerPermission(
+      {
+        icon: 'fas fa-level-up-alt',
+        label: app.translator.trans('foskym-custom-levels.admin.permissions.edit_exp'),
+        permission: 'user.edit_exp',
+      },
+      'moderate',
+    );
 });
