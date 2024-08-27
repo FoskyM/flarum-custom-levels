@@ -5,17 +5,33 @@ import PostUser from 'flarum/forum/components/PostUser';
 import UserCard from 'flarum/forum/components/UserCard';
 import CommentPost from 'flarum/forum/components/CommentPost';
 import Post from 'flarum/common/models/Post';
+import User from 'flarum/common/models/User';
+import Model from 'flarum/common/Model';
+import Button from 'flarum/common/components/Button';
+import UserControls from 'flarum/forum/utils/UserControls';
 import LinkButton from 'flarum/common/components/LinkButton';
 import NotificationGrid from 'flarum/forum/components/NotificationGrid';
 import LevelBar from '../common/components/LevelBar';
 import ExpLogPage from './components/ExpLogPage';
 import LevelUpdatedNotification from './components/LevelUpdatedNotification';
+import EditExpModal from './components/EditExpModal';
 
 import integrations from './integrations';
 
 app.initializers.add('foskym/flarum-custom-levels', () => {
   integrations();
   app.notificationComponents.levelUpdated = LevelUpdatedNotification;
+
+  User.prototype.canEditExp = Model.attribute('canEditExp');
+
+  extend(UserControls, 'moderationControls', (items, user) => {
+    if (user.canEditExp()) {
+      items.add('exp', Button.component({
+        icon: 'fas fa-level-up-alt',
+        onclick: () => app.modal.show(EditExpModal, {user})
+      }, app.translator.trans('foskym-custom-levels.forum.user_controls.edit_exp_button')));
+    }
+  });
 
   extend(NotificationGrid.prototype, 'notificationTypes', function (items) {
     items.add('levelUpdated', {

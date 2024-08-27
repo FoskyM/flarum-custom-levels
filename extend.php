@@ -45,6 +45,9 @@ return [
         ->attributes(UserAttributes::class)
         ->attribute('exp', function (UserSerializer $serializer, User $user) {
             return (int) $user->exp;
+        })
+        ->attribute('canEditExp', function (UserSerializer $serializer, User $user) {
+            return $serializer->getActor()->can('edit_exp', $user);
         }),
     
     (new Extend\ApiController(ListUsersController::class))
