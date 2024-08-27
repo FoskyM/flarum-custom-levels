@@ -6,7 +6,8 @@ export default function userDirectry(app: ForumApplication) {
   const UserDirectoryState = flarum.extensions['fof-user-directory']?.UserDirectoryState as any;
   override(UserDirectoryState.prototype, 'sortMap', function (original) {
     const map = original();
-    map['exp'] = '-exp';
+    map['most_exp'] = '-exp';
+    map['least_exp'] = 'exp';
     return map;
   });
 }

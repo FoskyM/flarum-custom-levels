@@ -87,16 +87,17 @@ foskym-custom-levels:
         provider_data:
           same_as_use_cnt: Same as the times can be used
       user-directory:
-        sort_type: Exp
-      leaderboard:
-        sort_type: Exp
+        most_exp: Most Exp
+        least_exp: Least Exp
 
 fof-user-directory:
   lib:
     sort:
-      exp: => foskym-custom-levels.lib.integrations.user-directory.sort_type
+      most_exp: => foskym-custom-levels.lib.integrations.user-directory.most_exp
+      least_exp: => foskym-custom-levels.lib.integrations.user-directory.least_exp
 
 nodeloc-leaderboard:
   lib:
     sort:
-      exp: => foskym-custom-levels.lib.integrations.leaderboard.sort_type
+      most_exp: => foskym-custom-levels.lib.integrations.user-directory.most_exp
+      least_exp: => foskym-custom-levels.lib.integrations.user-directory.least_exp

@@ -6,7 +6,8 @@ export default function leaderboard(app: ForumApplication) {
   const LeaderBoardState = flarum.extensions['nodeloc-leaderboard']?.LeaderBoardState as any;
   override(LeaderBoardState.prototype, 'sortMap', function (original) {
     const map = original();
-    map['exp'] = '-exp';
+    map['most_exp'] = '-exp';
+    map['least_exp'] = 'exp';
     return map;
   });
 }
