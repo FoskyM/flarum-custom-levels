@@ -88,8 +88,15 @@ foskym-custom-levels:
           same_as_use_cnt: Same as the times can be used
       user-directory:
         sort_type: Exp
+      leaderboard:
+        sort_type: Exp
 
 fof-user-directory:
   lib:
     sort:
       exp: => foskym-custom-levels.lib.integrations.user-directory.sort_type
+
+nodeloc-leaderboard:
+  lib:
+    sort:
+      exp: => foskym-custom-levels.lib.integrations.leaderboard.sort_type

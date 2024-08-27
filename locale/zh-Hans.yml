@@ -91,8 +91,15 @@ foskym-custom-levels:
           same_as_use_cnt: 与可用次数相同
       user-directory:
         sort_type: 经验值
+      leaderboard:
+        sort_type: 经验值
 
 fof-user-directory:
   lib:
     sort:
       exp: => foskym-custom-levels.lib.integrations.user-directory.sort_type
+
+nodeloc-leaderboard:
+  lib:
+    sort:
+      exp: => foskym-custom-levels.lib.integrations.leaderboard.sort_type
