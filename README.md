@@ -29,6 +29,14 @@ Install with composer:
 composer require foskym/flarum-custom-levels:"*"
 ```
 
+## Command
+
+```sh
+php flarum foskym:custom-levels:detete-exp-logs  # Delete Exp Logs
+php flarum foskym:custom-levels:refresh # Refresh Exp by settings
+php flarum foskym:custom-levels:refresh-quest # Refresh Exp by Done quests
+```
+
 ## Updating
 
 ```sh
