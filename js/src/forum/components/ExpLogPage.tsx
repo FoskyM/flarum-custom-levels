@@ -65,7 +65,7 @@ export default class ExpLogPage extends UserPage {
               </h5>
               <p>
                 {app.translator.trans('foskym-custom-levels.forum.log.type.' + record.type(), {
-                  name: record.type() === 'forum_quests' ? record.relationship().quest_name : '',
+                  title: record.type() === 'forum_quests' ? record.relationship().quest_name : record.relationship().discussion_title || '',
                 })}
                 <span>
                   {record.relationship().post_id ? (

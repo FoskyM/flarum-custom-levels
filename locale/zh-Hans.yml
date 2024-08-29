@@ -71,15 +71,15 @@ foskym-custom-levels:
         post_deleted: 帖子被删除
         post_hidden: 帖子被隐藏
         post_restored: 帖子被恢复
-        discussion_started: 发表主题
-        discussion_deleted: 主题被删除
-        discussion_hidden: 主题被隐藏
-        discussion_restored: 主题被恢复
+        discussion_started: 发表主题 {title}
+        discussion_deleted: 主题被删除 {title}
+        discussion_hidden: 主题被隐藏 {title}
+        discussion_restored: 主题被恢复 {title}
         comment_deleted_in_deleted_discussion: 某主题下的回复随主题一起被删除
         post_liked: 帖子被点赞
         post_unliked: 帖子被取消点赞
         admin_edit: 管理员编辑
-        forum_quests: 任务系统：完成任务 {name}
+        forum_quests: 任务系统：完成任务 {title}
         store_purchase: 商店购买
 
   lib:

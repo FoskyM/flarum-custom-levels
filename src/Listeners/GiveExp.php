@@ -148,7 +148,7 @@ class GiveExp
     public function discussionWasStarted(Started $event): void
     {
         $type = 'discussion_started';
-        $relationship = ['discussion_id' => $event->discussion->id];
+        $relationship = ['discussion_id' => $event->discussion->id, 'discussion_title' => $event->discussion->title];
         $this->giveExp($event->actor, $this->exp_for_discussion, $type, $relationship);
     }
 
@@ -156,7 +156,7 @@ class GiveExp
     {
         if ($this->auto_remove == AutoRemoveEnum::HIDDEN) {
             $type = 'discussion_restored';
-            $relationship = ['discussion_id' => $event->discussion->id];
+            $relationship = ['discussion_id' => $event->discussion->id, 'discussion_title' => $event->discussion->title];
             $this->giveExp($event->discussion->user, $this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, 1);
@@ -167,7 +167,7 @@ class GiveExp
     {
         if ($this->auto_remove == AutoRemoveEnum::HIDDEN) {
             $type = 'discussion_hidden';
-            $relationship = ['discussion_id' => $event->discussion->id];
+            $relationship = ['discussion_id' => $event->discussion->id, 'discussion_title' => $event->discussion->title];
             $this->giveExp($event->discussion->user, -$this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, -1);
@@ -178,7 +178,7 @@ class GiveExp
     {
         if ($this->auto_remove == AutoRemoveEnum::DELETED) {
             $type = 'discussion_deleted';
-            $relationship = ['discussion_id' => $event->discussion->id];
+            $relationship = ['discussion_id' => $event->discussion->id, 'discussion_title' => $event->discussion->title];
             $this->giveExp($event->discussion->user, -$this->exp_for_discussion, $type, $relationship);
 
             $this->discussionCascadePosts($event->discussion, -1);
@@ -196,7 +196,7 @@ class GiveExp
                     && is_null($post->hidden_at)
                 ) {
                     $type = 'comment_deleted_in_deleted_discussion';
-                    $relationship = ['post_id' => $post->id, 'discussion_id' => $discussion->id];
+                    $relationship = ['post_id' => $post->id, 'discussion_id' => $discussion->id, 'discussion_title' => $discussion->title];
                     $this->giveExp($post->user, $multiply * $this->exp_for_post, $type, $relationship);
                 }
             }
