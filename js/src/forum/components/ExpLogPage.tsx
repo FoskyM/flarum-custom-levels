@@ -64,25 +64,29 @@ export default class ExpLogPage extends UserPage {
                 <span>{humanTime(record.created_at())}</span>
               </h5>
               <p>
-                {app.translator.trans('foskym-custom-levels.forum.log.type.' + record.type())}
+                {app.translator.trans('foskym-custom-levels.forum.log.type.' + record.type(), {
+                  name: record.type() === 'forum_quests' ? record.relationship().quest_name : '',
+                })}
                 <span>
                   {record.relationship().post_id ? (
                     <LinkButton href={'/d/' + record.relationship().discussion_id + '/' + record.relationship().post_number} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
                     </LinkButton>
-                  ) : (record.relationship().discussion_id ? (
+                  ) : record.relationship().discussion_id ? (
                     <LinkButton href={'/d/' + record.relationship().discussion_id} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
                     </LinkButton>
-                  ) : (record.type() === 'forum_quests' && 'xypp-forum-quests' in flarum.extensions ? (
+                  ) : record.type() === 'forum_quests' && 'xypp-forum-quests' in flarum.extensions ? (
                     <LinkButton href={'/quest_page'} target="_blank">
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
                     </LinkButton>
-                  ) : (record.type() === 'store_purchase' && 'xypp-store' in flarum.extensions ? (
+                  ) : record.type() === 'store_purchase' && 'xypp-store' in flarum.extensions ? (
                     <LinkButton href={'/u/' + m.route.param('username') + '/purchase_history'}>
                       {app.translator.trans('foskym-custom-levels.forum.log.view')}
                     </LinkButton>
-                  ) : '')))}
+                  ) : (
+                    ''
+                  )}
                 </span>
               </p>
               <hr />

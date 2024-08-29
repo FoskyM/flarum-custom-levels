@@ -75,7 +75,7 @@ foskym-custom-levels:
         post_liked: Post was liked
         post_unliked: Post was unliked
         admin_edit: Admin edited
-        forum_quests: Forum quests
+        forum_quests: "Forum quests: Completed {name}"
         store_purchase: Purchased in store
 
   lib:

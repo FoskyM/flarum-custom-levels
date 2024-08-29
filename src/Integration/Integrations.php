@@ -24,6 +24,7 @@ use Flarum\Discussion\Event\Deleted as DiscussionDeleted;
 use Flarum\User\Event\Saving;
 use Flarum\Likes\Event\PostWasLiked;
 use Flarum\Likes\Event\PostWasUnliked;
+use Xypp\ForumQuests\Event\QuestDone;
 
 $extend = [
     (new Extend\Event())
@@ -59,6 +60,8 @@ if (class_exists('Xypp\ForumQuests\Extend\RewardProvider')) {
         (new \Xypp\ForumQuests\Extend\RewardProvider())
             ->provide(Integration\ForumQuests\Rewards\ExpReward::class)
     ;
+    $extend[] = (new Extend\Event())
+        ->listen(QuestDone::class, Integration\ForumQuests\Listeners\QuestDoneListener::class);
 }
 
 if (class_exists('Xypp\Store\Extend\StoreItemProvider')) {

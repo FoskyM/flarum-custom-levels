@@ -18,7 +18,7 @@ class ExpReward extends RewardDefinition
     public function perform(User $user, $value): bool
     {
         $user->lockForUpdate()->find($user->id)->increment('exp', $value);
-        $this->dispatcher->dispatch(new ExpUpdated($user, $value, 'forum_quests'));
+        // $this->dispatcher->dispatch(new ExpUpdated($user, $value, 'forum_quests'));
         return true;
     }
 }
