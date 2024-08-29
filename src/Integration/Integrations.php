@@ -26,18 +26,29 @@ use Flarum\Likes\Event\PostWasLiked;
 use Flarum\Likes\Event\PostWasUnliked;
 use Xypp\ForumQuests\Event\QuestDone;
 
-$extend = [
-    (new Extend\Event())
-        ->listen(Posted::class, [Listeners\GiveExp::class, 'postWasPosted'])
-        ->listen(PostRestored::class, [Listeners\GiveExp::class, 'postWasRestored'])
-        ->listen(PostHidden::class, [Listeners\GiveExp::class, 'postWasHidden'])
-        ->listen(PostDeleted::class, [Listeners\GiveExp::class, 'postWasDeleted'])
-        ->listen(Started::class, [Listeners\GiveExp::class, 'discussionWasStarted'])
-        ->listen(DiscussionRestored::class, [Listeners\GiveExp::class, 'discussionWasRestored'])
-        ->listen(DiscussionHidden::class, [Listeners\GiveExp::class, 'discussionWasHidden'])
-        ->listen(DiscussionDeleted::class, [Listeners\GiveExp::class, 'discussionWasDeleted'])
-        ->listen(Saving::class, [Listeners\GiveExp::class, 'userWillBeSaved']),
-];
+$extend = [];
+
+if (class_exists('Xypp\ForumQuests\Extend\RewardProvider')) {
+    $extend[] =
+        (new \Xypp\ForumQuests\Extend\RewardProvider())
+            ->provide(Integration\ForumQuests\Rewards\ExpReward::class)
+    ;
+    $extend[] = (new Extend\Event())
+        ->listen(QuestDone::class, Integration\ForumQuests\Listeners\QuestDoneListener::class);
+} else {
+    $extend += [
+        (new Extend\Event())
+            ->listen(Posted::class, [Listeners\GiveExp::class, 'postWasPosted'])
+            ->listen(PostRestored::class, [Listeners\GiveExp::class, 'postWasRestored'])
+            ->listen(PostHidden::class, [Listeners\GiveExp::class, 'postWasHidden'])
+            ->listen(PostDeleted::class, [Listeners\GiveExp::class, 'postWasDeleted'])
+            ->listen(Started::class, [Listeners\GiveExp::class, 'discussionWasStarted'])
+            ->listen(DiscussionRestored::class, [Listeners\GiveExp::class, 'discussionWasRestored'])
+            ->listen(DiscussionHidden::class, [Listeners\GiveExp::class, 'discussionWasHidden'])
+            ->listen(DiscussionDeleted::class, [Listeners\GiveExp::class, 'discussionWasDeleted'])
+            ->listen(Saving::class, [Listeners\GiveExp::class, 'userWillBeSaved']),
+    ];
+}
 
 if (class_exists('Flarum\Likes\Event\PostWasLiked')) {
     $extend[] =
@@ -53,15 +64,6 @@ if (class_exists('Askvortsov\AutoModerator\Extend\AutoModerator')) {
             ->metricDriver('exp', Integration\AutoModerator\Metric\Exp::class)
             ->actionDriver('exp', Integration\AutoModerator\Action\Exp::class)
     ;
-}
-
-if (class_exists('Xypp\ForumQuests\Extend\RewardProvider')) {
-    $extend[] =
-        (new \Xypp\ForumQuests\Extend\RewardProvider())
-            ->provide(Integration\ForumQuests\Rewards\ExpReward::class)
-    ;
-    $extend[] = (new Extend\Event())
-        ->listen(QuestDone::class, Integration\ForumQuests\Listeners\QuestDoneListener::class);
 }
 
 if (class_exists('Xypp\Store\Extend\StoreItemProvider')) {

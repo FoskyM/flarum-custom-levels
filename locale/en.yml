@@ -17,6 +17,8 @@ foskym-custom-levels:
       autoRemove: Auto remove exp
       cascadeRemove: When a discussion is removed, remove the exp of the replies
 
+    go_to_forum_quests: More settings in Forum Quests
+
     auto_remove:
       0: Never remove exp
       1: When a post/reply is hidden or deleted (default)

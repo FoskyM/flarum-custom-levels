@@ -2,6 +2,8 @@ import app from 'flarum/admin/app';
 import { extend, override } from 'flarum/extend';
 import SettingsPage from './components/SettingsPage';
 
+import LinkButton from 'flarum/common/components/LinkButton';
+
 app.initializers.add('foskym/flarum-custom-levels', () => {
   app.extensionData
     .for('foskym-custom-levels')
@@ -48,79 +50,98 @@ app.initializers.add('foskym/flarum-custom-levels', () => {
         </div>
       );
     })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForPost')}</label>
-          <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForPostDesc')}</div>
-          <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForPost')} />
-        </div>
-      );
-    })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.postMinLength')}</label>
-          <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.postMinLength')} />
-        </div>
-      );
-    })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.postMaxTimes')}</label>
-          <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.postMaxTimes')} />
-        </div>
-      );
-    })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForDiscussion')}</label>
-          <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForDiscussionDesc')}</div>
-          <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForDiscussion')} />
-        </div>
-      );
-    })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.discussionMaxTimes')}</label>
-          <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.discussionMaxTimes')} />
-        </div>
-      );
-    })
-    .registerSetting(function () {
-      return (
-        <div className="Form-group">
-          <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForLike')}</label>
-          <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForLikeDesc')}</div>
-          <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForLike')} />
-        </div>
-      );
-    })
-    .registerSetting({
-      setting: 'foskym-custom-levels.autoRemove',
-      label: app.translator.trans('foskym-custom-levels.admin.settings.autoRemove'),
-      type: 'select',
-      options: {
-        '0': app.translator.trans('foskym-custom-levels.admin.auto_remove.0'),
-        '1': app.translator.trans('foskym-custom-levels.admin.auto_remove.1'),
-        '2': app.translator.trans('foskym-custom-levels.admin.auto_remove.2'),
-      },
-      default: '1',
-    })
-    .registerSetting({
-      setting: 'foskym-custom-levels.cascadeRemove',
-      label: app.translator.trans('foskym-custom-levels.admin.settings.cascadeRemove'),
-      type: 'checkbox',
-    })
     .registerPermission(
       {
         icon: 'fas fa-level-up-alt',
         label: app.translator.trans('foskym-custom-levels.admin.permissions.edit_exp'),
         permission: 'user.edit_exp',
       },
-      'moderate',
+      'moderate'
     );
+
+  if ('xypp-forum-quests' in flarum.extensions) {
+    app.extensionData.for('foskym-custom-levels').registerSetting(function () {
+      return (
+        <div className="Form-group">
+          <LinkButton
+            href={app.route('extension', {
+              id: 'xypp-forum-quests',
+            })}
+          >
+            {app.translator.trans('foskym-custom-levels.admin.go_to_forum_quests')}
+          </LinkButton>
+        </div>
+      );
+    });
+  } else {
+    app.extensionData
+      .for('foskym-custom-levels')
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForPost')}</label>
+            <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForPostDesc')}</div>
+            <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForPost')} />
+          </div>
+        );
+      })
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.postMinLength')}</label>
+            <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.postMinLength')} />
+          </div>
+        );
+      })
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.postMaxTimes')}</label>
+            <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.postMaxTimes')} />
+          </div>
+        );
+      })
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForDiscussion')}</label>
+            <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForDiscussionDesc')}</div>
+            <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForDiscussion')} />
+          </div>
+        );
+      })
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.discussionMaxTimes')}</label>
+            <input type="number" className="FormControl" bidi={this.setting('foskym-custom-levels.discussionMaxTimes')} />
+          </div>
+        );
+      })
+      .registerSetting(function () {
+        return (
+          <div className="Form-group">
+            <label>{app.translator.trans('foskym-custom-levels.admin.settings.expForLike')}</label>
+            <div class="helpText">{app.translator.trans('foskym-custom-levels.admin.settings.expForLikeDesc')}</div>
+            <input type="text" className="FormControl" bidi={this.setting('foskym-custom-levels.expForLike')} />
+          </div>
+        );
+      })
+      .registerSetting({
+        setting: 'foskym-custom-levels.autoRemove',
+        label: app.translator.trans('foskym-custom-levels.admin.settings.autoRemove'),
+        type: 'select',
+        options: {
+          0: app.translator.trans('foskym-custom-levels.admin.auto_remove.0'),
+          1: app.translator.trans('foskym-custom-levels.admin.auto_remove.1'),
+          2: app.translator.trans('foskym-custom-levels.admin.auto_remove.2'),
+        },
+        default: '1',
+      })
+      .registerSetting({
+        setting: 'foskym-custom-levels.cascadeRemove',
+        label: app.translator.trans('foskym-custom-levels.admin.settings.cascadeRemove'),
+        type: 'checkbox',
+      });
+  }
 });

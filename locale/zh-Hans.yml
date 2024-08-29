@@ -18,6 +18,8 @@ foskym-custom-levels:
       expForLikeDesc: 需要 flarum/likes 扩展程序。纯数字，不支持小数。或者区间，例如「[1, 10]」表示 1 到 10 之间的随机数
       autoRemove: 自动扣除经验
       cascadeRemove: 当主题被移除时，扣除回帖的经验
+
+    go_to_forum_quests: 在 Forum Quests 中查看更多设置
       
     auto_remove:
       0: 从不扣除经验
