@@ -80,6 +80,9 @@ class GiveExp
 
     public function giveExp(?User $user, int $exp, string $type = '', array $relationship = []): bool
     {
+        if ($exp == 0) {
+            return false;
+        }
         if (!is_null($user)) {
             $user->exp += $exp;
             $user->save();
