@@ -36,7 +36,8 @@ return [
         ->serializeToForum('foskym-custom-levels.levelFormula', 'foskym-custom-levels.levelFormula'),
 
     (new Extend\Console())
-        ->command(Command\RefreshExpCommand::class),
+        ->command(Command\RefreshExpCommand::class)
+        ->command(Command\RefreshQuestExpCommand::class),
 
     (new Extend\Model(User::class))
         ->cast('exp', 'int'),
