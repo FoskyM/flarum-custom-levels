@@ -37,7 +37,8 @@ return [
 
     (new Extend\Console())
         ->command(Command\RefreshExpCommand::class)
-        ->command(Command\RefreshQuestExpCommand::class),
+        ->command(Command\RefreshQuestExpCommand::class)
+        ->command(Command\DeleteExpLogsCommand::class),
 
     (new Extend\Model(User::class))
         ->cast('exp', 'int'),

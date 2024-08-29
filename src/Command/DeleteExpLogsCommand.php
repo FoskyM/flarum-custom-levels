@@ -25,10 +25,10 @@ use FoskyM\CustomLevels\Model\ExpLog;
 use Xypp\ForumQuests\QuestInfo;
 use Carbon\Carbon;
 
-class RefreshQuestExpCommand extends Command
+class DeleteExpLogsCommand extends Command
 {
-    protected $signature = 'foskym:custom-levels:refresh-quest';
-    protected $description = 'Re-computes the exp for each user based on quests';
+    protected $signature = 'foskym:custom-levels:delete-exp-logs';
+    protected $description = 'Delete all exp logs.';
 
     protected $settings;
     protected $events;
@@ -56,39 +56,14 @@ class RefreshQuestExpCommand extends Command
     }
     public function handle()
     {
-        if (!class_exists('Xypp\ForumQuests\QuestInfo')) {
-            $this->error('Forum Quests extension is not installed.');
-            return;
-        }
         $progress = $this->output->createProgressBar(User::query()->count());
 
         User::query()->chunk(100, function (Collection $users) use ($progress) {
-            $users->load(['notifications' => function (HasMany $relationship) {
-                $relationship->where('type', 'quest_done');
-            }]);
-
             foreach ($users as $user) {
-                $this->expLog($user, - $user->exp, $user->exp, 0, 'system_clear');
-                $user->exp = 0;
-
-                foreach ($user->notifications as $notification) {
-                    $quest_id = $notification->subject_id;
-                    $quest = QuestInfo::find($quest_id);
-                    if ($quest) {
-                        $rewards = json_decode($quest->rewards);;
-                        foreach ($rewards as $reward) {
-                            if ($reward->name === 'exp') {
-                                $exp = $reward->value;
-                                $user->exp += $exp;
-                            }
-                        }
-                    }
+                $exp_logs = ExpLog::where('user_id', $user->id)->get();
+                foreach ($exp_logs as $exp_log) {
+                    $exp_log->delete();
                 }
-                
-                $user->save();
-
-                $this->expLog($user, $user->exp, 0, $user->exp, 'system_refresh');
-
                 $progress->advance();
             }
         });
