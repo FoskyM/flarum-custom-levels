@@ -51,8 +51,9 @@ class QuestDoneListener
                     'quest_id' => $quest->id,
                     'quest_name' => $quest->name,
                 ];
-
-                $this->events->dispatch(new ExpUpdated($user, $reward->value, 'forum_quests', $relationship));
+// 核心修复：将字符串类型的 $reward->value 强制转为整数（int）
+                $expValue = (int)$reward->value;
+                $this->events->dispatch(new ExpUpdated($user, $expValue, 'forum_quests', $relationship));
             }
         }
     }
